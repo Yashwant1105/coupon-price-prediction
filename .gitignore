@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.env
+.ipynb_checkpoints/
+.vscode/
+
+# Data and models
+data/
+models/
+*.pkl
+*.joblib
+
+# OS
+.DS_Store
+Thumbs.db
