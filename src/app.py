@@ -3,6 +3,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib, json, pandas as pd, numpy as np
 import os
+from fastapi.middleware.cors import CORSMiddleware
+
 
 # ---- Config / model loading at startup ----
 MODEL_PATH = "src/best_model.pkl"
@@ -50,6 +52,16 @@ campaign_dict   = campaign_df.to_dict(orient="index") if not campaign_df.empty e
 app = FastAPI(title="Coupon Purchase Prediction API",
               description="Predict probability a coupon will be redeemed. Supply only customer_id, campaign_id, coupon_id.",
               version="1.0")
+
+# Enable CORS so frontend (Lovable/ngrok site) can call API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # for dev: allow all. Later restrict to your frontend URL.
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class PredictRequest(BaseModel):
     customer_id: int
