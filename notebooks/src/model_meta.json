@@ -1,1 +1,1 @@
-{"features": ["campaign_id", "coupon_id", "customer_id", "txn_count", "total_spent", "avg_spent", "total_qty", "avg_qty", "total_discount", "coupon_txn_count", "recency_days", "coupon_usage_rate"], "threshold": 0.3, "best_iteration": 287}
+{"features": ["campaign_id", "coupon_id", "customer_id", "txn_count", "total_spent", "avg_spent", "total_qty", "avg_qty", "total_discount", "coupon_txn_count", "recency_days", "coupon_usage_rate"], "threshold": 0.81, "best_iteration": 287}

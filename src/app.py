@@ -5,8 +5,6 @@ import joblib, json, pandas as pd, numpy as np
 import os
 from fastapi.middleware.cors import CORSMiddleware
 
-
-# ---- Config / model loading at startup ----
 MODEL_PATH = "src/best_model.pkl"
 META_PATH = "src/model_meta.json"
 
@@ -17,17 +15,17 @@ model = joblib.load(MODEL_PATH)
 with open(META_PATH) as f:
     meta = json.load(f)
 
-FEATURES = meta["features"]            # exact feature order expected by the model
-THRESHOLD = meta.get("threshold", 0.5)
+FEATURES = meta["features"]          
+THRESHOLD = meta.get("threshold", 0.3)
 BEST_IT = meta.get("best_iteration", None)
 
-# ---- Load lookup tables (saved from notebook) ----
-# If you didn't save these CSVs earlier, you can generate them from notebook and place here.
+#Load lookup tables (saved from notebook) 
+
 CUST_DEMO_CSV = "src/cust_demo_feat.csv"
 CUST_TRANS_CSV = "src/cust_trans_features.csv"
 CAMPAIGN_CSV = "src/campaign_feat.csv"
 
-# If any lookup file missing, create an empty DataFrame so API still runs
+#create an empty DataFrame so API still runs
 def _load_csv_or_empty(path, index_col):
     if os.path.exists(path):
         df = pd.read_csv(path)
@@ -56,7 +54,7 @@ app = FastAPI(title="Coupon Purchase Prediction API",
 # Enable CORS so frontend (Lovable/ngrok site) can call API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # for dev: allow all. Later restrict to your frontend URL.
+    allow_origins=["*"],   # for dev: allow all.
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
